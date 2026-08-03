@@ -33,17 +33,22 @@ app.use(
 app.get("/", (req, res) => {
   res.json({
     success: true,
-    message: "E-commerce Backend Running ",
+    message: "E-commerce Backend Running",
   });
 });
 
+// Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
 
-// Connection
-const PORT = process.env.PORT || 5000;
+// Local development only
+if (process.env.NODE_ENV !== "production") {
+  const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
+
+export default app;
